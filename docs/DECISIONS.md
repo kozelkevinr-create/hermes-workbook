@@ -11,4 +11,4 @@ One line each: date, decision, why.
 - 2026-11-12: openpyxl is the one runtime dependency (MVP xlsx backend). Hermes host must have it installed; revisit vendoring/install hook before publishing.
 - 2026-11-12: Scaffold done by coordinator directly rather than a worker: it was mechanical copy/rename and cheaper than a task spec.
 - 2026-11-12: Root __init__.py and the package use relative imports (Hermes loads the plugin dir as a package; absolute imports fail in `hermes plugins validate`). Reported by hermes-calendar-plugin.
-- 2026-11-12: pytest must run with `--rootdir=tests tests` (Makefile/CI do): otherwise pytest imports the root __init__.py as a package and fails on its relative import. Added tests/unit/test_hermes_load.py to load the plugin like Hermes does.
+- 2026-11-12: pytest must run with `--rootdir=tests tests` plus `--import-mode=importlib` (pyproject addopts; Makefile/CI pass rootdir): otherwise pytest imports the root __init__.py as a package and fails on its relative import. Added tests/unit/test_hermes_load.py to load the plugin like Hermes does.
