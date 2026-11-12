@@ -57,6 +57,14 @@ class LocalBackend:
         _check_ext(path)
         self.path = path
 
+    def revision(self) -> str:
+        """Opaque change token for the file (mtime + size); ``"none"`` if it does not exist."""
+        try:
+            stat = self.path.stat()
+        except OSError:
+            return "none"
+        return f"{stat.st_mtime_ns:x}-{stat.st_size:x}"
+
     # -- loading / saving -------------------------------------------------
     def _load_csv(self) -> list[list[Cell]]:
         with self.path.open(newline="", encoding="utf-8") as fh:

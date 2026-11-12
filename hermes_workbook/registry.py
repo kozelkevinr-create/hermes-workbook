@@ -35,6 +35,10 @@ class RegistryError(Exception):
     """A user-facing registry failure (bad scope, name, or path)."""
 
 
+class NotFoundError(RegistryError):
+    """The named workbook is not registered."""
+
+
 @dataclass(frozen=True)
 class Entry:
     name: str
@@ -142,4 +146,4 @@ def lookup(name: str) -> Entry:
         for entry in list_entries(sc):
             if entry.name == name:
                 return entry
-    raise RegistryError(f"no workbook named {name!r}")
+    raise NotFoundError(f"no workbook named {name!r}")
