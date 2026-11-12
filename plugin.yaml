@@ -1,7 +1,7 @@
 # Hermes plugin manifest.
 # Contract: plugin.yaml + __init__.py::register(ctx) in this directory.
 # Run `hermes plugins validate .` (Hermes >= 0.23) before opening a PR.
-name: hermes-calendar
+name: hermes-workbook
 version: 0.0.1
 description: "Workbook management for Hermes Agent: global and per-profile workbooks (xlsx/csv, Google Sheets later)."
 author: "Hermes Workbook contributors"

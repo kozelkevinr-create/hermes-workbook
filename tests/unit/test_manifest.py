@@ -66,3 +66,10 @@ def test_registered_tools_match_manifest() -> None:
     ctx = Ctx()
     register(ctx)
     assert sorted(ctx.names) == sorted(load_manifest()["provides_tools"])
+
+
+def test_manifest_name_matches_plugin_and_package() -> None:
+    manifest = load_manifest()
+    assert manifest["name"] == "hermes-workbook"
+    pyproject = (REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    assert f'name = "{manifest["name"]}"' in pyproject

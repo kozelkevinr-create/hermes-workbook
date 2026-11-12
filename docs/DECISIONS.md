@@ -22,3 +22,4 @@ One line each: date, decision, why.
 - 2026-11-12: openpyxl stays a declared pyproject dependency: Hermes reads [project].dependencies and installs it at 'hermes plugins install' with consent (verified in hermes pm/plugin_declarations.py). Missing at runtime -> tool error telling user to run 'hermes pm repair'. csv does not need it.
 - 2026-11-12: Copied shared_store_check.py verbatim from hermes-calendar-plugin (+ its tests); workbook_status reports a shared_store block via verify_shared(PLUGIN_NAME, profile id derived from the profile dir name, 'default' outside profiles/). Fails closed (never raises).
 - 2026-11-12: Wrote docs/design/google-sheets.md (design only). Recommend service account first, OAuth loopback later; stdlib HTTPS before adding google client libs.
+- 2026-11-12: Fixed plugin.yaml name (was still hermes-calendar after copy; a real install on docker-host exposed it, validator did not). Added manifest-name test.
