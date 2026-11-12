@@ -8,6 +8,6 @@ entry point beside ``plugin.yaml``; the implementation lives in the
 
 from __future__ import annotations
 
-from hermes_workbook.plugin import register
+from .hermes_workbook.plugin import register
 
 __all__ = ["register"]

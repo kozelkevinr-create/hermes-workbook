@@ -2,6 +2,6 @@
 
 from __future__ import annotations
 
-from hermes_workbook.cli import main
+from .cli import main
 
 raise SystemExit(main())

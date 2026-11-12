@@ -17,7 +17,7 @@ typecheck:
 	$(PYTHON) -m mypy
 
 test:
-	$(PYTHON) -m pytest --cov --cov-report=term-missing
+	$(PYTHON) -m pytest --rootdir=tests tests --cov --cov-report=term-missing
 
 coverage: test
 

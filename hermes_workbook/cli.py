@@ -11,7 +11,7 @@ from __future__ import annotations
 import argparse
 from collections.abc import Sequence
 
-from hermes_workbook import __version__
+from . import __version__
 
 PROGRAM = "hermes-workbook"
 

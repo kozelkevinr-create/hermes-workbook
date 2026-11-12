@@ -15,8 +15,8 @@ import json
 from pathlib import Path
 from typing import Any
 
-from hermes_workbook import __version__
-from hermes_workbook.plugin_storage import global_dir, profile_dir
+from . import __version__
+from .plugin_storage import global_dir, profile_dir
 
 PLUGIN_NAME = "hermes-workbook"
 PROFILE_DB_FILENAME = "workbook.db"
