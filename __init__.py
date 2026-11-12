@@ -1,13 +1,22 @@
 """Hermes plugin entry point for hermes-workbook.
 
-Hermes loads this module from the plugin directory and calls ``register(ctx)``
-exactly once at load time. Keep this file thin: it exists so Hermes finds the
-entry point beside ``plugin.yaml``; the implementation lives in the
-``hermes_workbook`` package.
+Hermes loads this module from the plugin directory as a package and calls
+``register(ctx)`` exactly once at load time. Keep this file thin: it exists so
+Hermes finds the entry point beside ``plugin.yaml``; the implementation lives in
+the ``hermes_workbook`` package.
+
+Imports are relative so the plugin works both as a Hermes directory plugin
+(``<plugin dir>/__init__.py`` loaded as a package) and as the repository root
+during development. Pytest collects the repository root as a package of its
+own; in that case there is no parent package for a relative import, so fall
+back to the top-level ``hermes_workbook`` package on ``sys.path``.
 """
 
 from __future__ import annotations
 
-from .hermes_workbook.plugin import register
+if __package__:
+    from .hermes_workbook.plugin import register
+else:
+    from hermes_workbook.plugin import register
 
 __all__ = ["register"]
