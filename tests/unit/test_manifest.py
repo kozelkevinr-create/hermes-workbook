@@ -51,3 +51,18 @@ def test_declared_surfaces_are_lists() -> None:
 
 def test_workbook_status_is_declared() -> None:
     assert "workbook_status" in load_manifest()["provides_tools"]
+
+
+def test_registered_tools_match_manifest() -> None:
+    class Ctx:
+        names: list[str]
+
+        def __init__(self) -> None:
+            self.names = []
+
+        def register_tool(self, **kwargs: Any) -> None:
+            self.names.append(kwargs["name"])
+
+    ctx = Ctx()
+    register(ctx)
+    assert sorted(ctx.names) == sorted(load_manifest()["provides_tools"])

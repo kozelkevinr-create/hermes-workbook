@@ -12,3 +12,8 @@ One line each: date, decision, why.
 - 2026-11-12: Scaffold done by coordinator directly rather than a worker: it was mechanical copy/rename and cheaper than a task spec.
 - 2026-11-12: Root __init__.py and the package use relative imports (Hermes loads the plugin dir as a package; absolute imports fail in `hermes plugins validate`). Reported by hermes-calendar-plugin.
 - 2026-11-12: pytest must run with `--rootdir=tests tests` plus `--import-mode=importlib` (pyproject addopts; Makefile/CI pass rootdir): otherwise pytest imports the root __init__.py as a package and fails on its relative import. Added tests/unit/test_hermes_load.py to load the plugin like Hermes does.
+- 2026-11-12: Workbook files must live under the scope's `workbooks/` dir or a root listed in env HERMES_WORKBOOK_ROOTS (os.pathsep-separated). Why: keeps agents from touching arbitrary host files; env var needs no extra config schema. Revisit as a plugin config option.
+- 2026-11-12: MVP rejects formulas (cell values starting with "=") on write. Why: avoids formula injection and unverifiable computed values; revisit post-MVP.
+- 2026-11-12: workbook_register requires the file to exist; workbook_create makes the file and registers it. csv has one pseudo-sheet "Sheet1", no ranges, append only.
+- 2026-11-12: Read/write capped at 5000 cells per call; reads flag `truncated`.
+- 2026-11-12: Added types-openpyxl to dev deps for mypy --strict.

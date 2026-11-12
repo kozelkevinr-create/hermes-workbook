@@ -17,6 +17,7 @@ from typing import Any
 
 from . import __version__
 from .plugin_storage import global_dir, profile_dir
+from .tools import TOOLS
 
 PLUGIN_NAME = "hermes-workbook"
 PROFILE_DB_FILENAME = "workbook.db"
@@ -78,3 +79,11 @@ def register(ctx: Any) -> None:
         handler=workbook_status,
         description="Report plugin version and workbook data locations.",
     )
+    for name, description, handler, schema in TOOLS:
+        ctx.register_tool(
+            name=name,
+            toolset="workbook",
+            schema=schema,
+            handler=handler,
+            description=description,
+        )

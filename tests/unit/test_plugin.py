@@ -34,8 +34,7 @@ def test_register_registers_workbook_status(
 
     register(ctx)
 
-    assert len(ctx.tools) == 1
-    tool = ctx.tools[0]
+    tool = next(t for t in ctx.tools if t["name"] == "workbook_status")
     assert tool["name"] == "workbook_status"
     assert tool["toolset"] == "workbook"
     assert tool["schema"]["name"] == "workbook_status"

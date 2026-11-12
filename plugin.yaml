@@ -18,4 +18,12 @@ tags:
 # Hermes validates this drift, so add to both lists when a surface lands.
 provides_tools:
   - workbook_status
+  - workbook_register
+  - workbook_unregister
+  - workbook_list
+  - workbook_create
+  - workbook_sheets
+  - workbook_read
+  - workbook_write
+  - workbook_append
 provides_hooks: []
