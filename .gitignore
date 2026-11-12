@@ -4,6 +4,9 @@ __pycache__/
 *.egg-info/
 build/
 dist/
+# The dashboard ships hand-written JS/CSS under dashboard/dist/: source, not build output.
+!dashboard/dist/
+!dashboard/dist/**
 .venv/
 venv/
 

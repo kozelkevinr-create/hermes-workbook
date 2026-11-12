@@ -124,3 +124,24 @@ print("register ok")
     )
     assert result.returncode == 0, result.stderr or result.stdout
     assert "register ok" in result.stdout
+
+
+def test_dist_files_are_not_gitignored() -> None:
+    """A generic ``dist/`` ignore rule once kept the front end out of the repo."""
+    gitignore = (REPO_ROOT / ".gitignore").read_text(encoding="utf-8")
+    assert "!dashboard/dist/" in gitignore
+    if (REPO_ROOT / ".git").exists():
+        result = subprocess.run(
+            [
+                "git",
+                "check-ignore",
+                "--no-index",
+                "dashboard/dist/index.js",
+                "dashboard/dist/style.css",
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert result.stdout.strip() == "", f"git-ignored: {result.stdout}"
