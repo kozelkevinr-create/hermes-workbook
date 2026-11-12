@@ -1,0 +1,21 @@
+# Hermes plugin manifest.
+# Contract: plugin.yaml + __init__.py::register(ctx) in this directory.
+# Run `hermes plugins validate .` (Hermes >= 0.23) before opening a PR.
+name: hermes-calendar
+version: 0.0.1
+description: "Workbook management for Hermes Agent: global and per-profile workbooks (xlsx/csv, Google Sheets later)."
+author: "Hermes Workbook contributors"
+kind: standalone
+manifest_version: 2
+requires_hermes: ">=0.23"
+license: MIT
+tags:
+  - workbook
+  - spreadsheet
+  - xlsx
+  - productivity
+# Declarations below must match what register(ctx) actually registers.
+# Hermes validates this drift, so add to both lists when a surface lands.
+provides_tools:
+  - workbook_status
+provides_hooks: []
