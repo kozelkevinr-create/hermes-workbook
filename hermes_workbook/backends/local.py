@@ -19,6 +19,16 @@ class WorkbookError(Exception):
     """A user-facing workbook failure."""
 
 
+def _require_openpyxl() -> None:
+    """Fail with an actionable message when the declared dependency is missing."""
+    try:
+        import openpyxl  # noqa: F401
+    except ImportError as exc:
+        raise WorkbookError(
+            "openpyxl is not installed. Run `hermes pm repair` and restart Hermes."
+        ) from exc
+
+
 def _is_csv(path: Path) -> bool:
     return path.suffix.lower() == ".csv"
 
@@ -57,6 +67,7 @@ class LocalBackend:
             csv.writer(fh).writerows(["" if c is None else c for c in row] for row in rows)
 
     def _load_xlsx(self) -> Any:
+        _require_openpyxl()
         from openpyxl import load_workbook
 
         return load_workbook(self.path)
@@ -77,6 +88,7 @@ class LocalBackend:
         if _is_csv(self.path):
             self._save_csv([])
             return
+        _require_openpyxl()
         from openpyxl import Workbook
 
         wb = Workbook()
@@ -148,6 +160,7 @@ class LocalBackend:
         self._validate_values(values)
         if _is_csv(self.path):
             raise WorkbookError("use append for csv workbooks")
+        _require_openpyxl()
         from openpyxl.utils.cell import column_index_from_string, coordinate_from_string
 
         try:

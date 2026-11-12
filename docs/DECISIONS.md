@@ -19,3 +19,4 @@ One line each: date, decision, why.
 - 2026-11-12: Added types-openpyxl to dev deps for mypy --strict.
 - 2026-11-12: Adopted calendar's root __init__.py (relative import, bare-package fallback), scripts/validate_remote.sh, `make validate-remote` and tests/unit/test_relative_imports.py. Dropped the `--rootdir=tests`/importlib pytest workaround; bare `pytest` works. Real `hermes plugins validate --json` on docker-host: ok:true, all 9 tools match registrations, isolation verdict host.
 - 2026-11-12: openpyxl is imported lazily, so the validator does not prove it is installed on the Hermes host. Still to verify/handle (install hook or clear error message).
+- 2026-11-12: openpyxl stays a declared pyproject dependency: Hermes reads [project].dependencies and installs it at 'hermes plugins install' with consent (verified in hermes pm/plugin_declarations.py). Missing at runtime -> tool error telling user to run 'hermes pm repair'. csv does not need it.

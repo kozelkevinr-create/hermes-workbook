@@ -150,3 +150,15 @@ def test_missing_file_reports_cleanly(tmp_path: Path) -> None:
     created = call(tools.workbook_create, name="gone", path="gone.xlsx")
     Path(created["path"]).unlink()
     assert "does not exist" in call(tools.workbook_sheets, name="gone")["error"]
+
+
+def test_missing_openpyxl_gives_actionable_error(monkeypatch: pytest.MonkeyPatch) -> None:
+    created = call(tools.workbook_create, name="dep", path="dep.xlsx")
+    assert created["ok"]
+    monkeypatch.setitem(__import__("sys").modules, "openpyxl", None)
+    assert "hermes pm repair" in call(tools.workbook_sheets, name="dep")["error"]
+    assert "hermes pm repair" in call(tools.workbook_create, name="d2", path="d2.xlsx")["error"]
+    assert (
+        "hermes pm repair"
+        in call(tools.workbook_write, name="dep", start="A1", values=[[1]])["error"]
+    )
