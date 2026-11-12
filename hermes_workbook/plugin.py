@@ -12,11 +12,13 @@ drift.
 from __future__ import annotations
 
 import json
+from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
 from . import __version__
 from .plugin_storage import global_dir, profile_dir
+from .shared_store_check import verify_shared
 from .tools import TOOLS
 
 PLUGIN_NAME = "hermes-workbook"
@@ -44,6 +46,12 @@ def _database_status(directory: Path, filename: str) -> dict[str, str | bool]:
     return {"path": str(path), "exists": path.is_file()}
 
 
+def _profile_id(profile: Path) -> str:
+    """Profile name from ``<home>/plugin-data/<plugin>``; ``default`` outside ``profiles/``."""
+    home = profile.parent.parent
+    return home.name if home.parent.name == "profiles" else "default"
+
+
 def workbook_status(_args: dict[str, Any] | None = None, **_kwargs: Any) -> str:
     """Return plugin version, data locations, and database presence as JSON.
 
@@ -61,6 +69,7 @@ def workbook_status(_args: dict[str, Any] | None = None, **_kwargs: Any) -> str:
             "profile": _database_status(profile, PROFILE_DB_FILENAME),
             "global": _database_status(global_, GLOBAL_DB_FILENAME),
         },
+        "shared_store": asdict(verify_shared(PLUGIN_NAME, _profile_id(profile))),
     }
     return json.dumps(payload, sort_keys=True)
 
