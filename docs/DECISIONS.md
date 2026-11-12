@@ -24,3 +24,4 @@ One line each: date, decision, why.
 - 2026-11-12: Wrote docs/design/google-sheets.md (design only). Recommend service account first, OAuth loopback later; stdlib HTTPS before adding google client libs.
 - 2026-11-12: Fixed plugin.yaml name (was still hermes-calendar after copy; a real install on docker-host exposed it, validator did not). Added manifest-name test.
 - 2026-11-12: Installed on docker-host from a temp git repo (file:// URL, --yes-deps --enable); verified all tools in the new Hermes venvs (openpyxl 3.1.5, py3.14) with a temp HERMES_HOME. Hermes puts deps in a NEW environment; running gateways/one-shot keep the old env (no openpyxl) until 'hermes gateway restart'. I did not restart gateways (affects all profiles).
+- 2026-11-12: Re-copied shared_store_check.py (+tests) from calendar: retries locked/busy opens with bounded backoff (race when several profiles first-open the global DB).
