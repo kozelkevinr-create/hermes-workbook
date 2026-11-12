@@ -1,0 +1,14 @@
+{
+  "name": "hermes-workbook",
+  "label": "Workbooks",
+  "description": "Review the workbooks your agents manage: global and per-profile registries, sheets and cell data (read-only).",
+  "icon": "Table",
+  "version": "0.0.1",
+  "tab": {
+    "path": "/workbooks",
+    "position": "after:skills"
+  },
+  "entry": "dist/index.js",
+  "css": "dist/style.css",
+  "api": "plugin_api.py"
+}

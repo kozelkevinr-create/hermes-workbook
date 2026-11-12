@@ -33,6 +33,9 @@ dev = [
   "ruff>=0.6",
   "types-PyYAML>=6.0",
   "types-openpyxl>=3.1",
+  # Dashboard tests only. The dashboard host provides FastAPI/httpx at runtime.
+  "fastapi>=0.115",
+  "httpx>=0.27",
 ]
 
 [project.scripts]
